@@ -6,6 +6,7 @@ __pycache__/
 # C extensions
 *.so
 data/
+lightning_logs/
 test/
 train/
 # Distribution / packaging
