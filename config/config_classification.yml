@@ -1,0 +1,106 @@
+Train:
+  Dataset:
+    images_path: ./
+    target_height: 320
+    target_width: 320
+    target_col: label
+  loader:
+    batch_size: 16
+    shuffle: True
+    num_workers: 4
+Val:
+  Dataset:
+    images_path: ./
+    target_height: 320
+    target_width: 320
+    target_col: label
+  loader:
+    batch_size: 20
+    shuffle: False
+    num_workers: 4
+
+logger_path:
+  main_logger: ./lightning_logs/main_logs.txt
+  lightning_logger: ./lightning_logs
+
+model_params:
+  num_outputs: 1
+  model_name: efficientnet_b2b
+  pretrained: True
+  freeze_bn: False
+  dropout_p: 0.5
+  show_model_summary: False
+
+training:
+  batch_size: 16
+  loss: FocalLoss #LabelSmoothingCrossEntropyBCE #BCELoss FocalLoss
+  warmup_steps: 300
+  optimizer:
+    name: Adam
+    kwargs:
+      lr: 1e-4
+  early_stop_callback:
+    monitor: acc_metric
+    mode: max
+    patience: 4
+    verbose: True
+  ModelCheckpoint:
+    path: /{epoch:02d}-{avg_val_metric:.4f}
+    kwargs:
+      monitor: avg_val_metric
+      mode: max
+  scheduler:
+    ReduceLROnPlateau:
+      factor: 0.5
+      patience: 2
+      verbose: True
+      mode: max
+    kwargs:
+      monitor: avg_val_metric  # Default: val_loss
+      interval: epoch
+      frequency: 1
+  Trainer:
+    show_progress_bar: False
+    max_epochs: 20
+    min_epochs: 3
+    precision: 32
+    fast_dev_run: False
+    accumulate_grad_batches: 1
+    gpus: 1
+    train_percent_check: 1
+    val_percent_check: 1
+    num_nodes: 1
+    auto_lr_find: False # bugs
+
+
+validation:
+  train_csv: all_train.csv
+  test_csv: None
+  folds_path: ./lightning_logs/folds.csv
+  target_col: label
+  nfolds: 4
+  location_col:
+  seed: 42
+  batch_size: 16
+
+total_seed: 42
+
+test_inference:
+  train_csv: all_train.csv
+  target_col: label
+  nfolds: 2
+  folds_path: ./lightning_logs/all_train.csv
+  models_path: './lightning_logs/models'
+  TTA:
+    - null
+    - flip_lr
+    - flip_ud
+  Dataset:
+    images_path: ./
+    target_height: 320
+    target_width: 320
+  loader:
+    batch_size: 16
+    shuffle: False
+    num_workers: 8
+  threshold: 0.485
