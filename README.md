@@ -17,7 +17,7 @@
  
  b. Adjust config in `config/config_classification.yml`
  
- c. train models run ``train.py``
+ c. train models run ``python train.py``
  
  d. Watch tensorboad logs `tensorboard --logdir ./lightning_logs/`
  
