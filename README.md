@@ -5,6 +5,8 @@
 * ROC AUC 0.697
 * MAP 0.183
 
+![cv_test.png](./readme_images/cv_test.png)
+
 ### Graph method
 
 **Test**
@@ -30,3 +32,18 @@
 ### Graph method
 
 1. Run ```python fit_predict_graph.py```
+
+
+## Data
+
+We will predict the activity (against COVID?) of different molecules. 
+
+Dataset sample:
+```
+smiles,activity
+OC=1C=CC=CC1CNC2=NC=3C=CC=CC3N2,1
+CC(=O)NCCC1=CNC=2C=CC(F)=CC12,1
+O=C([C@@H]1[C@H](C2=CSC=C2)CCC1)N,1
+```
+
+![cv_test.png](./readme_images/sample graph.png)
