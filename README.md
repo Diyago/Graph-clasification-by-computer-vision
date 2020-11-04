@@ -1,3 +1,4 @@
+## Results
 ### Computer vision
 
 **Test**
@@ -11,15 +12,21 @@
 * MAP 0.199
 
 
-**3. To train model**
+## Training models
+### Computer vision
 
- a. Prepare data by ```prepare_data.py```
+ 0. Generate graph images ```python generate_images.py``` 
+ 1. Prepare data by ```python prepare_data.py```
  
- b. Adjust config in `config/config_classification.yml`
+ 2. Adjust config in `config/config_classification.yml`
  
- c. train models run ``python train.py``
+ 3. train models run ``python train.py``
  
- d. Watch tensorboad logs `tensorboard --logdir ./lightning_logs/`
+ 4. Watch tensorboad logs `tensorboard --logdir ./lightning_logs/`
  
- e. Collect up-to-date requirements.txt call `pipreqs --force`
- 
+ 5. Collect up-to-date requirements.txt call `pipreqs --force`
+
+
+### Graph method
+
+1. Run ```python fit_predict_graph.py```
