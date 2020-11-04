@@ -1,13 +1,14 @@
-**Train**
-ROC AUC 0.989
-Precision 0.964
-Recall 0.5
-F1_score 0.659
-MAP 0.901
+### Computer vision
 
 **Test**
-ROC AUC 0.697
-MAP 0.183
+* ROC AUC 0.697
+* MAP 0.183
+
+### Graph method
+
+**Test**
+* ROC AUC 0.702
+* MAP 0.199
 
 
 **3. To train model**
@@ -20,7 +21,5 @@ MAP 0.183
  
  d. Watch tensorboad logs `tensorboard --logdir ./lightning_logs/`
  
- e. All inference and deploy param specified in `deploy_model` folder
- 
- d. Collect up-to-date requirements.txt call `pipreqs --force`
+ e. Collect up-to-date requirements.txt call `pipreqs --force`
  
