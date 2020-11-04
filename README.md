@@ -46,4 +46,4 @@ CC(=O)NCCC1=CNC=2C=CC(F)=CC12,1
 O=C([C@@H]1[C@H](C2=CSC=C2)CCC1)N,1
 ```
 
-![sample graph.png](./readme_images/sample graph.png)
+![sample_graph.png](./readme_images/sample_graph.png)
