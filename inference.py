@@ -66,7 +66,6 @@ if __name__ == "__main__":
                                  height=config["test_inference"]["Dataset"]["target_height"]))
     loader = DataLoader(dataset, **config["test_inference"]["loader"])
     all_models = get_all_models(config["test_inference"]["models_path"])
-
     model_results = {"preds": [], "image_names": [], "image_label": {}}
     for fnames, images in tqdm(loader):
         images = images.to(device)
@@ -82,11 +81,9 @@ if __name__ == "__main__":
     model_results['preds'] = np.concatenate(model_results["preds"]).ravel() / len(all_models)
     model_results["image_label"] = list((model_results["preds"] > config["test_inference"]["threshold"]
                                          ).astype(int))
-
     model_results = pd.DataFrame(model_results)
     model_results['gt_label'] = folds.label.reset_index(drop=True)
-    class_to_id = {"correct": 1, "incorrect": 0}
-    model_results['gt_label'] = model_results['gt_label'].map(class_to_id)
+
     model_results.to_excel('./lightning_logs/model_preds_train.xlsx', index=True)
     print('ROC AUC', round(metrics.roc_auc_score(model_results['gt_label'], model_results['preds']), 3))
     print('Precision', round(model_results[model_results['image_label'] == 1].gt_label.mean(), 3))

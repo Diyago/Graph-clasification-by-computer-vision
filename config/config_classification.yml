@@ -86,7 +86,7 @@ validation:
 total_seed: 42
 
 test_inference:
-  train_csv: all_train.csv
+  train_csv: all_test.csv
   target_col: label
   nfolds: 2
   folds_path: ./lightning_logs/all_train.csv

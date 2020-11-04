@@ -5,7 +5,7 @@ from skorch import NeuralNetClassifier
 import torch
 from torch_geometric.data import Batch
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import roc_auc_score
+from sklearn.metrics import roc_auc_score, average_precision_score
 from torch_geometric.data import InMemoryDataset, download_url
 from rdkit import Chem
 import pandas as pd
@@ -91,8 +91,8 @@ if __name__ == "__main__":
     net = NeuralNetClassifier(
         module=SimpleGNN,
         module__dataset=covid,
-        max_epochs=30,
-        batch_size=40,
+        max_epochs=20,
+        batch_size=-1,
         lr=0.001
     )
     print("Starting training")
@@ -101,3 +101,4 @@ if __name__ == "__main__":
     print('AUC TRAIN', roc_auc_score(
         y_train, fit.predict_proba(X_train)[:, 0]))
     print('AUC TEST', roc_auc_score(y_test, fit.predict_proba(X_test)[:, 0]))
+    print('MAP TEST', average_precision_score(y_test, fit.predict_proba(X_test)[:, 0]))
