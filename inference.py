@@ -75,7 +75,7 @@ if __name__ == "__main__":
                 batch_preds = get_tta_preds(model, images, augment=config["test_inference"]["TTA"])
             else:
                 batch_preds += get_tta_preds(model, images, augment=config["test_inference"]["TTA"])
-        model_results["image_names"].extend([i for i in fnames])
+        model_results["image_names"].extend(list(fnames))
         model_results["preds"].append(batch_preds)
 
     model_results['preds'] = np.concatenate(model_results["preds"]).ravel() / len(all_models)
